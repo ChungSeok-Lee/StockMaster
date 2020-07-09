@@ -1,3 +1,20 @@
+#전처리
+from sklearn.preprocessing import MinMaxScaler
+import pandas as pd
+import numpy as np
+
+#머신러닝
+import tensorflow as tf
+from tensorflow.keras.layers import LSTM
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
+import tensorflow.keras.backend as k 
+from tensorflow.keras.callbacks import EarlyStopping
+
+#데이터
+import pandas_datareader as pdr
+df= pdr.get_data_yahoo('AAPL', '2000-01-01')
+
 def predstock(col):
     tempdf = df[col]
     # log scaler 
