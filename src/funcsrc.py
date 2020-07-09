@@ -25,21 +25,21 @@ def predstock(col):
     global scaler_open
     global scaler_close
     if col == 'High':
-    scaler_high = MinMaxScaler() 
-    sc_logdf = pd.DataFrame(scaler_high.fit_transform(np.array(logdf).reshape(-1,1)), index= logdf.index, columns=[col]) 
+        scaler_high = MinMaxScaler() 
+        sc_logdf = pd.DataFrame(scaler_high.fit_transform(np.array(logdf).reshape(-1,1)), index= logdf.index, columns=[col]) 
     elif col =='Low':
-    scaler_low = MinMaxScaler() 
-    sc_logdf = pd.DataFrame(scaler_low.fit_transform(np.array(logdf).reshape(-1,1)), index= logdf.index, columns=[col]) 
+        scaler_low = MinMaxScaler() 
+        sc_logdf = pd.DataFrame(scaler_low.fit_transform(np.array(logdf).reshape(-1,1)), index= logdf.index, columns=[col]) 
     elif col =='Open':
-    scaler_open = MinMaxScaler() 
-    sc_logdf = pd.DataFrame(scaler_open.fit_transform(np.array(logdf).reshape(-1,1)), index= logdf.index, columns=[col]) 
+        scaler_open = MinMaxScaler() 
+        sc_logdf = pd.DataFrame(scaler_open.fit_transform(np.array(logdf).reshape(-1,1)), index= logdf.index, columns=[col]) 
     elif col =='Close':
-    scaler_close = MinMaxScaler() 
-    sc_logdf = pd.DataFrame(scaler_close.fit_transform(np.array(logdf).reshape(-1,1)), index= logdf.index, columns=[col]) 
+        scaler_close = MinMaxScaler() 
+        sc_logdf = pd.DataFrame(scaler_close.fit_transform(np.array(logdf).reshape(-1,1)), index= logdf.index, columns=[col]) 
 
     # Time shift
     for s in range(1,6):
-    sc_logdf['shift_{}'.format(s)] = sc_logdf[col].shift(s)
+        sc_logdf['shift_{}'.format(s)] = sc_logdf[col].shift(s)
     #split train/test set_ 200개씩 분리
     x_train = sc_logdf.dropna().drop(col, axis =1).iloc[:-200] 
     y_train = sc_logdf.dropna()[col].iloc[:-200]
@@ -98,7 +98,7 @@ def predstock(col):
         model_close.add(LSTM(20, input_shape=(x_train.shape[1],1)))
         model_close.add(Dense(1))
         model_close.compile(loss='mean_squared_error', optimizer='adam')
-        model_close.fit(x_train_t, y_train, epochs = 2000, batch_size = 2, verbose=1)
+        model_close.fit(x_train_t, y_train, epochs = 10, batch_size = 2, verbose=1)
         pred = model_close.predict(np.array(x_test_t).reshape(x_test_t.shape[0],x_test_t.shape[1],1))
         pred = np.exp(scaler_close.inverse_transform(pred))
         result = pd.DataFrame(df[col].iloc[-200:])
