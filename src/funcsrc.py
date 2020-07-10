@@ -2,7 +2,6 @@
 from sklearn.preprocessing import MinMaxScaler
 import pandas as pd
 import numpy as np
-
 #머신러닝
 import tensorflow as tf
 from tensorflow.keras.layers import LSTM
@@ -10,8 +9,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 import tensorflow.keras.backend as k 
 from tensorflow.keras.callbacks import EarlyStopping
-
-#데이터
+#데이터 
 import pandas_datareader as pdr
 df= pdr.get_data_yahoo('AAPL', '2000-01-01')
 
@@ -25,17 +23,17 @@ def predstock(col):
     global scaler_open
     global scaler_close
     if col == 'High':
-    scaler_high = MinMaxScaler() 
-    sc_logdf = pd.DataFrame(scaler_high.fit_transform(np.array(logdf).reshape(-1,1)), index= logdf.index, columns=[col]) 
+        scaler_high = MinMaxScaler() 
+        sc_logdf = pd.DataFrame(scaler_high.fit_transform(np.array(logdf).reshape(-1,1)), index= logdf.index, columns=[col]) 
     elif col =='Low':
-    scaler_low = MinMaxScaler() 
-    sc_logdf = pd.DataFrame(scaler_low.fit_transform(np.array(logdf).reshape(-1,1)), index= logdf.index, columns=[col]) 
+        scaler_low = MinMaxScaler() 
+        sc_logdf = pd.DataFrame(scaler_low.fit_transform(np.array(logdf).reshape(-1,1)), index= logdf.index, columns=[col]) 
     elif col =='Open':
-    scaler_open = MinMaxScaler() 
-    sc_logdf = pd.DataFrame(scaler_open.fit_transform(np.array(logdf).reshape(-1,1)), index= logdf.index, columns=[col]) 
+        scaler_open = MinMaxScaler() 
+        sc_logdf = pd.DataFrame(scaler_open.fit_transform(np.array(logdf).reshape(-1,1)), index= logdf.index, columns=[col]) 
     elif col =='Close':
-    scaler_close = MinMaxScaler() 
-    sc_logdf = pd.DataFrame(scaler_close.fit_transform(np.array(logdf).reshape(-1,1)), index= logdf.index, columns=[col]) 
+        scaler_close = MinMaxScaler() 
+        sc_logdf = pd.DataFrame(scaler_close.fit_transform(np.array(logdf).reshape(-1,1)), index= logdf.index, columns=[col]) 
 
     # Time shift
     for s in range(1,6):
