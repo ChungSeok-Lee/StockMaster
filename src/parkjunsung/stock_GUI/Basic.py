@@ -5,7 +5,7 @@ def calc(event):
 
 root = Tk()
 root.title('Stock')
-root.geometry("640x400+100+100")
+root.geometry("840x600+100+100")
 root.resizable(False, False)
 
 
